@@ -3,10 +3,9 @@ package com.example.task1.ui.main;
 import android.content.Context;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.*;
 import com.example.task1.R;
+import com.example.task1.ui.main.tab2.Fragment2;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
