@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     contextOfApplication = getApplicationContext();
 
+
     SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this,
         getSupportFragmentManager());
 
