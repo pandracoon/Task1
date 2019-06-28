@@ -24,7 +24,7 @@
       </intent-filter>
     </activity>
 
-    <activity android:name=".ui.main.tab2.ImageActivity"></activity>
+    <activity android:name=".ui.main.Tab2.ImageActivity"></activity>
   </application>
 
 </manifest>

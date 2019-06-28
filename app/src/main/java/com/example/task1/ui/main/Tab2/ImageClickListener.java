@@ -1,4 +1,4 @@
-package com.example.task1.ui.main.tab2;
+package com.example.task1.ui.main.Tab2;
 
 import android.content.Context;
 import android.content.Intent;

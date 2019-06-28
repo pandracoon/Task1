@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.*;
 import com.example.task1.R;
-import com.example.task1.ui.main.tab2.Fragment2;
+import com.example.task1.ui.main.Tab2.Fragment2;
 import com.example.task1.ui.main.Tab1.Fragment1;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {

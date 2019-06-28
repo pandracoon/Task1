@@ -1,4 +1,4 @@
-package com.example.task1.ui.main.tab2;
+package com.example.task1.ui.main.Tab2;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
