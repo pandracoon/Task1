@@ -44,14 +44,15 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
         ContactList item = items.get(position);
+        Bitmap bm = loadContactPhoto(mContext.getContentResolver(), item.getPersonId(), item.getThumnailld());
 
         //Glide.with(viewHolder.itemView.getContext()).load(item.getUrl()).into(viewHolder.Picture);
 
         viewHolder.Name.setText(item.getName());
         viewHolder.Phone_number.setText(item.getPhone_number());
         viewHolder.Address.setText(item.getAddress());
-        if (mContext.getContentResolver() != null) {
-            viewHolder.Picture.setImageBitmap(loadContactPhoto(mContext.getContentResolver(), item.getPersonId(), item.getThumnailld()));
+        if (mContext.getContentResolver() != null && bm != null) {
+            viewHolder.Picture.setImageBitmap(bm);
         }
     }
 
