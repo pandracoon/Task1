@@ -1,23 +1,21 @@
-package com.example.task1.Tab1.model;
+package com.example.task1.ui.main.Tab1.model;
 
 public class ContactList {
 
-    private String  url;
     private String name;
     private String phone_number;
     private String address;
+    private Long personId;
+    private Long thumnailld;
 
-    public ContactList(String url, String name, String phone_number, String address) {
+    public ContactList(String name, String phone_number, String address, Long personId, Long thumnailld) {
 
-        this.url = url;
         this.name = name;
         this.phone_number = phone_number;
         this.address = address;
+        this.personId = personId;
+        this.thumnailld = thumnailld;
 
-    }
-
-    public String getUrl() {
-        return url;
     }
 
     public String getName() { return name; }
@@ -29,4 +27,8 @@ public class ContactList {
     public String getAddress() {
         return address;
     }
+
+    public Long getPersonId() { return personId; }
+
+    public Long getThumnailld() { return  thumnailld; }
 }
