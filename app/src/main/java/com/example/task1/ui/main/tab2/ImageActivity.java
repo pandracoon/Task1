@@ -2,6 +2,8 @@ package com.example.task1.ui.main.tab2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageView;
 import com.example.task1.R;
@@ -19,8 +21,13 @@ public class ImageActivity extends Activity {
 
   private void setImage(ImageView imageView){
     Intent receivedIntent = getIntent();
+    Bundle extras = receivedIntent.getExtras();
+    String imgPath = extras.getString("image ID");
 
-    int imageID=(Integer) receivedIntent.getExtras().get("image ID");
-    imageView.setImageResource(imageID);
+    BitmapFactory.Options bfo = new BitmapFactory.Options();
+    Bitmap bm = BitmapFactory.decodeFile(imgPath, bfo);
+    Bitmap resized = Bitmap.createBitmap(bm);
+    imageView.setImageBitmap(resized);
+
   }
 }

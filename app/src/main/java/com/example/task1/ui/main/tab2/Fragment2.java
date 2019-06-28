@@ -23,8 +23,6 @@ public class Fragment2 extends Fragment {
       R.drawable.image_08,
       R.drawable.image_09,
       R.drawable.image_10,
-
-
   };
 
 
@@ -38,7 +36,7 @@ public class Fragment2 extends Fragment {
     View view = inflater.inflate(R.layout.layout_fragment2, container, false);
 
     gridViewImages = (GridView) view.findViewById(R.id.gridViewImages);
-    ImageGridAdapter imageGridAdapter = new ImageGridAdapter(this.getContext(), imageIDs);
+    ImageGridAdapter imageGridAdapter = new ImageGridAdapter(this.getContext());
     gridViewImages.setAdapter(imageGridAdapter);
 
     return view;

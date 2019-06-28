@@ -1,31 +1,42 @@
 package com.example.task1.ui.main.tab2;
 
+import static com.example.task1.MainActivity.getContextOfApplication;
+
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.*;
+import android.provider.MediaStore;
 import android.view.*;
 import android.widget.*;
+import java.util.ArrayList;
 
 public class ImageGridAdapter extends BaseAdapter {
-  Context context = null;
 
-  //-----------------------------------------------------------
-  // imageIDs는 이미지 파일들의 리소스 ID들을 담는 배열입니다.
-  // 이 배열의 원소들은 자식 뷰들인 ImageView 뷰들이 무엇을 보여주는지를
-  // 결정하는데 활용될 것입니다.
+  Context context;
 
-  int[] imageIDs = null;
+  private String imgData;
+  private String geoData;
+  private ArrayList<String> thumbsDataList;
+  private ArrayList<String> thumbsIDList;
 
-  public ImageGridAdapter(Context context, int[] imageIDs) {
+  int[] imageIDs;
+
+  public ImageGridAdapter(Context context) {
     this.context = context;
-    this.imageIDs = imageIDs;
+
+    thumbsDataList = new ArrayList<String>();
+    thumbsIDList = new ArrayList<String>();
+
+    getThumbInfo(thumbsIDList, thumbsDataList);
   }
 
+
   public int getCount() {
-    return (null != imageIDs) ? imageIDs.length : 0;
+    return thumbsIDList.size();
   }
 
   public Object getItem(int position) {
-    return (null != imageIDs) ? imageIDs[position] : 0;
+    return position;
   }
 
   public long getItemId(int position) {
@@ -33,43 +44,23 @@ public class ImageGridAdapter extends BaseAdapter {
   }
 
   public View getView(int position, View convertView, ViewGroup parent) {
-    ImageView imageView = null;
+    ImageView imageView;
 
     if (null != convertView) {
       imageView = (ImageView) convertView;
     } else {
-      //---------------------------------------------------------------
-      // GridView 뷰를 구성할 ImageView 뷰의 비트맵을 정의합니다.
-      // 그리고 그것의 크기를 320*240으로 줄입니다.
-      // 크기를 줄이는 이유는 메모리 부족 문제를 막을 수 있기 때문입니다.
-
-      Bitmap bmp
-          = BitmapFactory.decodeResource(context.getResources(), imageIDs[position]);
-      bmp = Bitmap.createScaledBitmap(bmp, 320, 240, false);
-
-      //---------------------------------------------------------------
-      // GridView 뷰를 구성할 ImageView 뷰들을 정의합니다.
-      // 뷰에 지정할 이미지는 앞에서 정의한 비트맵 객체입니다.
-
       imageView = new ImageView(context);
       imageView.setAdjustViewBounds(true);
 
-      imageView.setImageBitmap(bmp);
+      BitmapFactory.Options bo = new BitmapFactory.Options();
+      Bitmap bmp = BitmapFactory.decodeFile(thumbsDataList.get(position), bo);
+      Bitmap resized = Bitmap.createScaledBitmap(bmp, 320, 240, false);
 
-      //---------------------------------------------------------------
-      // 지금은 사용하지 않는 코드입니다.
+      imageView.setImageBitmap(resized);
 
-      //imageView.setMaxWidth(320);
-      //imageView.setMaxHeight(240);
-      //imageView.setImageResource(imageIDs[position]);
-
-      //---------------------------------------------------------------
-      // 사진 항목들의 클릭을 처리하는 ImageClickListener 객체를 정의합니다.
-      // 그리고 그것을 ImageView의 클릭 리스너로 설정합니다.
-
-
+      String imgPath = getImageInfo(imgData, geoData, thumbsIDList.get(position));
       ImageClickListener imageViewClickListener
-          = new ImageClickListener(context, imageIDs[position]);
+          = new ImageClickListener(context, imgPath);
       imageView.setOnClickListener(imageViewClickListener);
 
     }
@@ -77,4 +68,68 @@ public class ImageGridAdapter extends BaseAdapter {
     return imageView;
   }
 
+  private void getThumbInfo(ArrayList<String> thumbsIDs, ArrayList<String> thumbsDatas) {
+    String[] proj = {
+        MediaStore.Images.Media._ID,
+        MediaStore.Images.Media.DATA,
+        MediaStore.Images.Media.DISPLAY_NAME,
+        MediaStore.Images.Media.SIZE
+    };
+
+    Context applicationContext = getContextOfApplication();
+
+    Cursor imageCursor = applicationContext.getContentResolver()
+        .query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            proj, null, null, null);
+
+    if (imageCursor != null && imageCursor.moveToFirst()) {
+      String thumbsID;
+      String thumbsImageID;
+      String thumbsData;
+      int thumbsIDCol = imageCursor.getColumnIndex(MediaStore.Images.Media._ID);
+      int thumbsDataCol = imageCursor.getColumnIndex(MediaStore.Images.Media.DATA);
+      int thumbsImageIDCol = imageCursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME);
+      int thumbsSizeCol = imageCursor.getColumnIndex(MediaStore.Images.Media.SIZE);
+      int num = 0;
+
+      do {
+        thumbsID = imageCursor.getString(thumbsIDCol);
+        thumbsData = imageCursor.getString(thumbsDataCol);
+        thumbsImageID = imageCursor.getString(thumbsImageIDCol);
+        num++;
+        if (thumbsImageID != null) {
+          thumbsIDs.add(thumbsID);
+          thumbsDatas.add(thumbsData);
+        }
+      } while (imageCursor.moveToNext());
+    }
+    imageCursor.close();
+    return;
+
+  }
+
+  private String getImageInfo(String ImageData, String Location, String thumbID) {
+    String imageDataPath = null;
+    String[] proj = {MediaStore.Images.Media._ID,
+        MediaStore.Images.Media.DATA,
+        MediaStore.Images.Media.DISPLAY_NAME,
+        MediaStore.Images.Media.SIZE};
+
+    Context applicationContext = getContextOfApplication();
+
+    Cursor imageCursor = applicationContext.getContentResolver()
+        .query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            proj, "_ID='" + thumbID + "'", null, null);
+
+    if (imageCursor != null && imageCursor.moveToFirst()) {
+      if (imageCursor.getCount() > 0) {
+        int imgData = imageCursor.getColumnIndex(MediaStore.Images.Media.DATA);
+        imageDataPath = imageCursor.getString(imgData);
+      }
+    }
+    imageCursor.close();
+    return imageDataPath;
+  }
 }
+
+
