@@ -8,12 +8,9 @@ public class LocationData {
 
 
   public ArrayList<LatLng> StationLocList = new ArrayList<LatLng>();
-
+  public ArrayList<String> StationNameList = new ArrayList<String>();
   public static final LatLng[] PathLocList = {};
 
-  public LocationData() {
-
-  }
 
   public void setData() {
     StationLocList.add(new LatLng(36.3733734, 127.3592182));   //학사식당
@@ -28,6 +25,17 @@ public class LocationData {
     StationLocList.add(new LatLng(36.3715681, 127.355487));   //나눔관
     StationLocList.add(new LatLng(36.368301, 127.3562427));  //희망-다솜관
 
+    StationNameList.add("학사식당");
+    StationNameList.add("Sport Complex");
+    StationNameList.add("창의학습관");
+    StationNameList.add("의과학센터");
+    StationNameList.add("Medical Center");
+    StationNameList.add("나노종합기술원");
+    StationNameList.add("정문");
+    StationNameList.add("오리연못");
+    StationNameList.add("교육지원동 건너편");
+    StationNameList.add("나눔관");
+    StationNameList.add("희망-다솜관");
 
   }
 
