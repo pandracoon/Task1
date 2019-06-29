@@ -3,6 +3,7 @@ package com.example.task1;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import androidx.fragment.app.FragmentManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -27,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     contextOfApplication = getApplicationContext();
-
 
     SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this,
         getSupportFragmentManager());

@@ -12,9 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import com.example.task1.R;
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 public class PlaceholderFragment extends Fragment {
 
   private static final String ARG_SECTION_NUMBER = "section_number";
