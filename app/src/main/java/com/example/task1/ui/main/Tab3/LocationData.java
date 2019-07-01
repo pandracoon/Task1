@@ -1,6 +1,8 @@
 package com.example.task1.ui.main.Tab3;
 
 import com.naver.maps.geometry.LatLng;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -515,6 +517,13 @@ public class LocationData {
   public String[] getLatestTime(int stationNum) {
     String[] latestTime = new String[2];
     LocalTime curTime = LocalTime.now();
+    LocalDate curDate = LocalDate.now();
+    DayOfWeek curDay = curDate.getDayOfWeek();
+
+    if (curDay == DayOfWeek.SATURDAY || curDay == DayOfWeek.SUNDAY) {
+      latestTime[0] = "No Bus";
+      latestTime[1] = "No Bus";
+    }
 
     for (int i = 0; i < timeTable.get(stationNum).size(); i++) {
       LocalTime time = LocalTime.parse(timeTable.get(stationNum).get(i));

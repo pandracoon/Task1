@@ -16,8 +16,8 @@ import com.example.task1.ui.main.SectionsPagerAdapter;
 public class MainActivity extends AppCompatActivity {
 
   public static Context contextOfApplication;
-  public static Context getContextOfApplication()
-  {
+
+  public static Context getContextOfApplication() {
     return contextOfApplication;
   }
 
