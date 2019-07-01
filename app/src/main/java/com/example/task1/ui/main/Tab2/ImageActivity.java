@@ -11,7 +11,7 @@ import com.example.task1.R;
 public class ImageActivity extends Activity {
 
   @Override
-  protected void onCreate(Bundle savedInstanceState){
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.tab2_imageview);
 
@@ -19,7 +19,7 @@ public class ImageActivity extends Activity {
     setImage(imageView);
   }
 
-  private void setImage(ImageView imageView){
+  private void setImage(ImageView imageView) {
     Intent receivedIntent = getIntent();
     Bundle extras = receivedIntent.getExtras();
     String imgPath = extras.getString("image ID");

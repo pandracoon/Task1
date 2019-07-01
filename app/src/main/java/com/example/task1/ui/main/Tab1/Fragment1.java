@@ -43,7 +43,8 @@ public class Fragment1 extends Fragment {
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.layout_fragment1, container, false);
 
     FloatingActionButton fab = view.findViewById(R.id.fab);
@@ -56,8 +57,9 @@ public class Fragment1 extends Fragment {
       }
     });
 
-
-    String[] PERMISSION_1 = {Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE};
+    String[] PERMISSION_1 = {Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.CALL_PHONE};
     if (!hasPermissions(getContextOfApplication(), PERMISSION_1)) {
       ActivityCompat.requestPermissions(getActivity(), PERMISSION_1, REQUEST_PERMISSION_KEY);
     }
@@ -72,7 +74,8 @@ public class Fragment1 extends Fragment {
   public static boolean hasPermissions(Context context, String... permissions) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
       for (String permission : permissions) {
-        if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(context, permission)
+            != PackageManager.PERMISSION_GRANTED) {
           return false;
         }
       }
@@ -81,6 +84,7 @@ public class Fragment1 extends Fragment {
   }
 
   class LoadContactsAsync extends AsyncTask<Void, Void, ArrayList<ContactList>> {
+
     ProgressDialog pd;
 
     @Override
@@ -97,15 +101,16 @@ public class Fragment1 extends Fragment {
       ArrayList<ContactList> contacts = new ArrayList<>();
       Uri uri_phone = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
       String[] projection = new String[]{
-              ContactsContract.CommonDataKinds.Phone.NUMBER,
-              ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
-              ContactsContract.Contacts.PHOTO_ID,
-              ContactsContract.Contacts._ID,
-              ContactsContract.CommonDataKinds.Phone.CONTACT_ID
+          ContactsContract.CommonDataKinds.Phone.NUMBER,
+          ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+          ContactsContract.Contacts.PHOTO_ID,
+          ContactsContract.Contacts._ID,
+          ContactsContract.CommonDataKinds.Phone.CONTACT_ID
       };
 
       String[] selectionArgs = null;
-      Cursor c_phone = getActivity().getContentResolver().query(uri_phone, projection, null, null, null);
+      Cursor c_phone = getActivity().getContentResolver()
+          .query(uri_phone, projection, null, null, null);
       assert c_phone != null;
       while (c_phone.moveToNext()) {
         long photo_id = c_phone.getLong(2);
@@ -115,7 +120,9 @@ public class Fragment1 extends Fragment {
         String contact_id = c_phone.getString(4);
 
         Uri uri_email = ContactsContract.CommonDataKinds.Email.CONTENT_URI;
-        Cursor ce = getActivity().getContentResolver().query(uri_email, null, ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?", new String[]{contact_id}, null);
+        Cursor ce = getActivity().getContentResolver()
+            .query(uri_email, null, ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?",
+                new String[]{contact_id}, null);
         String email = "Empty Email Address";
         if (ce != null && ce.moveToFirst()) {
           email = ce.getString(ce.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));

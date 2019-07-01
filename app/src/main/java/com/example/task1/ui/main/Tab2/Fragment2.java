@@ -20,7 +20,7 @@ import static com.example.task1.MainActivity.getContextOfApplication;
 public class Fragment2 extends Fragment {
 
   GridView gridViewImages;
-  
+
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
   }
