@@ -7,6 +7,7 @@ import androidx.fragment.app.*;
 import com.example.task1.R;
 import com.example.task1.ui.main.Tab2.Fragment2;
 import com.example.task1.ui.main.Tab1.Fragment1;
+import com.example.task1.ui.main.Tab3.Fragment3;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
