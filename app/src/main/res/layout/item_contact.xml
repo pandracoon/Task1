@@ -21,16 +21,7 @@
             android:ems="0"
             android:text="callNum"
             android:focusableInTouchMode="false"/>
-
-        <EditText
-            android:id="@+id/_id"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:ems="0"
-            android:text="Id"
-            android:focusableInTouchMode="false"/>
-
-
+        
         <Button
             android:id="@+id/callBtn"
             android:layout_width="40dp"
