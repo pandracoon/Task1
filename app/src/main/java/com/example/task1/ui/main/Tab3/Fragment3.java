@@ -1,7 +1,11 @@
 package com.example.task1.ui.main.Tab3;
 
+import static com.example.task1.MainActivity.getContextOfApplication;
+
+import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +13,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.task1.MainActivity;
 import com.example.task1.R;;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.geometry.LatLngBounds;
 import com.naver.maps.map.CameraPosition;
@@ -38,6 +44,15 @@ public class Fragment3 extends Fragment implements OnMapReadyCallback {
 
     mapView = (MapView) view.findViewById(R.id.map_view);
     mapView.getMapAsync(this);
+
+    FloatingActionButton fab = view.findViewById(R.id.timetableBtn);
+    fab.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent intent = new Intent(getContextOfApplication(), TimeTableActivity.class);
+        startActivity(intent);
+      }
+    });
 
     return view;
   }
@@ -86,7 +101,7 @@ public class Fragment3 extends Fragment implements OnMapReadyCallback {
         Marker marker = (Marker) overlay;
 
         final String stationName = marker.getCaptionText();
-        final int stationNum = locationData.stationNameList.indexOf(stationName); //정류장 식별 가능
+        final int stationNum = locationData.stationNameList.indexOf(stationName);
 
         InfoWindow infoWindow = new InfoWindow();
         infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(getContext()) {
