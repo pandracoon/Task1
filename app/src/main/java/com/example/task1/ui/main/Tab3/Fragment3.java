@@ -3,6 +3,7 @@ package com.example.task1.ui.main.Tab3;
 import static com.example.task1.MainActivity.getContextOfApplication;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -26,6 +27,7 @@ import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
+import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.overlay.PathOverlay;
 
 public class Fragment3 extends Fragment implements OnMapReadyCallback {
@@ -131,8 +133,10 @@ public class Fragment3 extends Fragment implements OnMapReadyCallback {
 
     PathOverlay path = new PathOverlay();
     path.setCoords(locationData.pathLocList);
-    // path.setPatternImage(OverlayImage.fromResource(R.drawable.path_pattern));
-    // path.setPatternInterval(10);
+    path.setPatternImage(OverlayImage.fromResource(R.drawable.arrow));
+    path.setColor(Color.BLUE);
+    path.setWidth(20);
+    path.setPatternInterval(50);
     path.setMap(naverMap);
 
 
